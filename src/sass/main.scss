@@ -1,0 +1,196 @@
+@import 'feta';
+
+// div,span {
+// 	outline: 1px solid black;
+// }
+
+
+$break-mobile-3: 375px;
+$break-mobile-2: 321px;
+$break-mobile-1: 280px;
+
+
+
+
+
+.head {
+	margin-top: 4px;
+	font-size: 16px;
+    margin-bottom: 4px;
+    text-align: center;
+    font-family: $sans;
+    color: #4a4a4a;
+    font-weight: 500;
+}
+
+.subhead {
+	font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: $mono;
+    color: #848484;
+}
+
+.the-buttons {
+
+	width: 100%;
+	float: left;
+
+	.btn { 
+		font-family: $mono;
+		font-size: 12px;
+		padding: 4px 15px;
+		background-color: $grey-lighter;
+		color: $grey-darker;
+		float: left;
+		margin: 4px;
+		line-height: 1;
+
+		&:hover {
+			background-color: $grey;
+		}
+	}
+
+}
+
+
+
+
+.row {
+	width: 100%;
+	float: left;
+	margin: 0 8px;
+}
+
+.hedcut {
+	float: left;
+	width: 10%;
+	text-align: center;
+	margin-top: 26px;
+
+	img {
+		width: 100%;
+		max-width: 40px;
+		display: inline-block;
+	}
+
+	span {
+		width: 100%;
+		float: left;
+		font-family: $sans;
+		color: $grey-dark;
+		font-size: 12px;
+	}
+
+}
+
+
+
+
+.chart {
+	float: left;
+	width: 85%;
+	height: 100px;
+	position: relative;
+
+	.axis {
+		path, line {
+			stroke: $grey-light;
+			shape-rendering: crispEdges;
+		}
+
+		text {
+			fill: $grey-dark;
+		}
+	}
+
+	.dot {
+		
+		fill: $grey;
+		stroke-width: 1;
+		stroke: #fff;
+
+		&.active {
+			fill: $red-secondary;
+		}
+	}
+
+	.text-box {
+		position: absolute;
+		padding: 4px;
+		font-family: $mono;
+		background-color: $grey-lightest;
+		z-index: 10;
+		line-height: 1.5;
+		max-width: 260px;
+		min-width: 140px;
+		display: none;
+
+		&.active {
+			display: inherit;
+		}
+
+		h2 {
+			font-size: 10px;
+			text-transform: uppercase;
+			color: $red-secondary;
+			letter-spacing: .5;
+		}
+
+		p {
+			font-size: 12px;
+			color: $grey-darkest;
+		}
+	}
+}
+
+
+@media screen and (max-width: $break-mobile-3) {
+	
+	body {
+		// background-color: #ccc;
+		text-align: center;
+	}
+
+	.row {
+		float: none;
+		display: inline-block;
+		width: 25%;
+		margin: 0;
+
+		&.nixon {
+			margin-right: -2px;
+		}
+
+		&.trump {
+			margin-left: -2px;
+		}
+	}
+
+	.hedcut {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+
+		img {
+			width: 100%;
+			max-width: 40px;
+		}
+
+	}
+
+	.chart {
+		display: inline-block;
+		width: 100%;
+		height: 450px;
+
+		.text-box {
+			max-width: auto;
+			min-width: auto;
+		}
+
+	}
+
+
+}
+
