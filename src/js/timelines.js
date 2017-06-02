@@ -97,6 +97,8 @@ class makeTimeline {
             .tickSizeInner(10)
             .tickSizeOuter(0);
 
+        this.yPos = this.axisPos === "top" ? this.height/3 : this.height - (this.height/3);
+
     }
 
     draw() {
@@ -123,7 +125,7 @@ class makeTimeline {
         this.plot.append("g")
             .attr("class", "axis x-axis")
             .attr("transform", d => {
-                return this.mobile ? `translate(${this.width / 2},0)` : `translate(0,${this.height / 2})`;
+                return this.mobile ? `translate(${this.width / 2},0)` : `translate(0,${this.yPos})`;
             })
             .call(this.xAxis);
 
@@ -134,7 +136,7 @@ class makeTimeline {
                 if (this.mobile) {
                     return this.axisPos === "top" ? `translate(0,0)` : `translate(${this.width/2},0)`;
                 } else {
-                    return this.axisPos === "top" ? `translate(0,0)` : `translate(0,${this.height/2})`;
+                    return this.axisPos === "top" ? `translate(0,0)` : `translate(0,${this.yPos})`;
                 }
             });
 
@@ -143,7 +145,7 @@ class makeTimeline {
                 return this.mobile ? this.width / 2 : 1;
             })
             .attr("height", d => {
-                return this.mobile ? 1 : this.height / 2;
+                return this.mobile ? 1 : this.yPos;
             });
 
         this.drawDots();
@@ -164,7 +166,7 @@ class makeTimeline {
                 return this.mobile ? this.width / 2 : this.xScale(this.parseTime(d.date));
             })
             .attr("cy", (d, i) => {
-                return this.mobile ? this.xScale(this.parseTime(d.date)) : this.height / 2;
+                return this.mobile ? this.xScale(this.parseTime(d.date)) : this.yPos;
             });
 
     }
@@ -183,12 +185,12 @@ class makeTimeline {
             if (this.mobile) {
                 return this.axisPos === "top" ? `translate(0,${pos})` : `translate(${this.width/2},${pos})`;
             } else {
-                return this.axisPos === "top" ? `translate(${pos}, 0)` : `translate(${pos},${this.height/2})`;
+                return this.axisPos === "top" ? `translate(${pos}, 0)` : `translate(${pos},${this.yPos})`;
             }
 
         });
 
-        //return this.axisPos === "top" ? `translate(0,0)` : `translate(0,${this.height/2})`;
+        //return this.axisPos === "top" ? `translate(0,0)` : `translate(0,${this.yPos})`;
 
 
     }
@@ -197,7 +199,12 @@ class makeTimeline {
     updateTextBox(obj) {
 
         if (!obj) {
-            this.textBox.classed("active", false);
+
+            this.textBox.classed("active", true);
+
+            this.textBox.transition(300).style("opacity", 0)
+                //.classed("active", false);
+
             this.plot.selectAll(".dot").classed("active", false);
             return false;
         }
@@ -209,15 +216,12 @@ class makeTimeline {
             .style("left", d => {
 
                 let pos = this.xScale(obj.dateVal);
+                var ttw = +this.textBox.style("width").split("px")[0];
 
                 if (this.mobile) {
                     return this.axisPos === "top" ? `${(this.width/2 + 10)}px` : "auto";
                 } else {
-                    if ((pos + 240) > this.width) {
-                        pos = this.width - 240;
-                    }
-
-                    return `${pos}px`;
+                   return pos + ttw > this.width ? "auto" : `${pos}px`;
                 }
 
             })
@@ -225,7 +229,9 @@ class makeTimeline {
                 if (this.mobile) {
                     return this.axisPos === "top" ? "auto" : `${(this.width/2 + 10)}px`;
                 } else {
-                    return "auto";
+                    let pos = this.xScale(obj.dateVal);
+                    var ttw = +this.textBox.style("width").split("px")[0];
+                    return pos + ttw > this.width ? 0 : "auto";
                 }
             })
             .style("top", d => {
@@ -233,20 +239,24 @@ class makeTimeline {
                     let pos = this.xScale(obj.dateVal);
                     return `${pos}px`;
                 } else {
-                    return this.axisPos === "top" ? `${(this.height/2) + 10 }px` : "auto";
+                    return this.axisPos === "top" ? `${(this.yPos) + 10 }px` : "auto";
                 }
             })
             .style("bottom", d => {
                 if (this.mobile) {
                     return "auto";
                 } else {
-                    return this.axisPos === "top" ? "auto" : `${(this.height/2) + 10 }px`;
+                    return this.axisPos === "top" ? "auto" : `${(this.height - this.yPos) + 10 }px`;
                 }
             })
             .html(
                 `<h2>${obj.displayDate}</h2>
                 <p>${obj.title}</p>`
             );
+
+        this.textBox.transition(300)
+            .style("opacity", 1)
+            //.classed("active", true);
 
 
         if (this.mobile) {

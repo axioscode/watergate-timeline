@@ -11,8 +11,6 @@ $break-mobile-1: 280px;
 
 
 
-
-
 .head {
 	margin-top: 4px;
 	font-size: 16px;
@@ -62,11 +60,19 @@ $break-mobile-1: 280px;
 	margin: 0 8px;
 }
 
+.nixon .hedcut {
+	margin-top: 68px;
+}
+
+.trump .hedcut {
+	margin-top: 16px;
+}
+
+
 .hedcut {
 	float: left;
 	width: 10%;
 	text-align: center;
-	margin-top: 26px;
 
 	img {
 		width: 100%;
@@ -90,7 +96,7 @@ $break-mobile-1: 280px;
 .chart {
 	float: left;
 	width: 85%;
-	height: 100px;
+	height: 140px;
 	position: relative;
 
 	.axis {
@@ -122,7 +128,7 @@ $break-mobile-1: 280px;
 		background-color: $grey-lightest;
 		z-index: 10;
 		line-height: 1.5;
-		max-width: 260px;
+		max-width: 200px;
 		min-width: 140px;
 		display: none;
 
@@ -171,6 +177,7 @@ $break-mobile-1: 280px;
 		display: inline-block;
 		width: 100%;
 		text-align: center;
+		margin-top: 0 !important;
 
 		img {
 			width: 100%;

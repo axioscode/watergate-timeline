@@ -57,42 +57,58 @@ var allDays = ["0", "109", "147", "229", "244", "282", "294", "329", "330", "429
 var index = 0;
 
 var timer = new makeTimer({
-	speed : 1000,
-	onUpdate : function() {
+    speed: 3000,
+    onUpdate: function() {
+        updateTimelines(index);
+        index++;
+    }
+});
 
-		if (index+1 >= allDays.length) {
-			timer.pause();
 
-		}
+var updateTimelines = function() {
 
-		let days = allDays[index]
-
-		nixonTimeline.updateScrubber(days);
-		trumpTimeline.updateScrubber(days);
-
-		if (trumpTimeline.daysLookup[days] || nixonTimeline.daysLookup[days]) {
-
-			//this.pause();
-
-			let nixonText = nixonTimeline.daysLookup[days] ? nixonTimeline.daysLookup[days] : null;
-			let trumpText = trumpTimeline.daysLookup[days] ? trumpTimeline.daysLookup[days] : null;
-
-			nixonTimeline.updateTextBox(nixonText);
-			trumpTimeline.updateTextBox(trumpText);
-
-		}
-
-		index++;
+	if (index >= allDays.length) {
+		index = 0;
+	} else if (index < 0) {
+		index = allDays.length -1;
 	}
+
+    let days = allDays[index]
+
+    nixonTimeline.updateScrubber(days);
+    trumpTimeline.updateScrubber(days);
+
+    if (trumpTimeline.daysLookup[days] || nixonTimeline.daysLookup[days]) {
+
+        let nixonText = nixonTimeline.daysLookup[days] ? nixonTimeline.daysLookup[days] : null;
+        let trumpText = trumpTimeline.daysLookup[days] ? trumpTimeline.daysLookup[days] : null;
+
+        nixonTimeline.updateTextBox(nixonText);
+        trumpTimeline.updateTextBox(trumpText);
+
+    }
+}
+
+updateTimelines(0);
+timer.start();
+
+
+d3.select(".btn.play").on("click", d => {
+    timer.start();
 });
 
-
-d3.select(".btn.play").on("click", d=> {
-	timer.start();
+d3.select(".btn.pause").on("click", d => {
+    timer.pause();
 });
 
-d3.select(".btn.pause").on("click", d=> {
+d3.select(".btn.next").on("click", d => {
 	timer.pause();
+	index++;
+	updateTimelines();
 });
 
-
+d3.select(".btn.prev").on("click", d => {
+	timer.pause();
+	index--;
+	updateTimelines();
+})
