@@ -25,7 +25,7 @@ var nixonTimeline = new makeTimeline({
     startDate: "1971-09-09",
     term: 1100, //days,
     onReady: function() {
-        console.log(this.daysLookup);
+        //console.log(this.daysLookup);
     }
 });
 
@@ -36,7 +36,7 @@ var trumpTimeline = new makeTimeline({
     startDate: "2016-06-14",
     term: 1100, //days,
     onReady: function() {
-        console.log(this.daysLookup);
+        //console.log(this.daysLookup);
     }
 });
 
@@ -47,12 +47,10 @@ d3.select(window).on("resize", d => {
 
 
 
-//var allDays = Object.keys(Object.assign(nixonTimeline.daysLookup, trumpTimeline.daysLookup));
-//console.log(allDays);
+// var allDays = Object.keys(Object.assign(nixonTimeline.daysLookup, trumpTimeline.daysLookup));
+// console.log(allDays);
 
-var allDays = ["0", "109", "147", "229", "244", "282", "294", "329", "330", "429", "509", "617", "624", "673", "772", "1049", "1052", "1064"];
-
-
+var allDays = ["0", "109", "147", "229", "244", "245", "282", "294", "329", "330", "429", "509", "617", "624", "673", "772", "1049", "1052", "1064"];
 
 var index = 0;
 
@@ -89,9 +87,8 @@ var updateTimelines = function() {
     }
 }
 
-updateTimelines(0);
+updateTimelines();
 timer.start();
-
 
 d3.select(".btn.play").on("click", d => {
     timer.start();
@@ -111,4 +108,23 @@ d3.select(".btn.prev").on("click", d => {
 	timer.pause();
 	index--;
 	updateTimelines();
-})
+});
+
+trumpTimeline.plot.selectAll(".dot")
+	.on("click", d=> {
+		index = allDays.indexOf(String(d.days));
+		timer.pause();
+		updateTimelines();
+	});
+
+nixonTimeline.plot.selectAll(".dot")
+	.on("click", d=> {
+		index = allDays.indexOf(String(d.days));
+		timer.pause();
+		updateTimelines();
+	});
+
+
+
+
+

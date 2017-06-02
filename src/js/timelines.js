@@ -110,6 +110,8 @@ class makeTimeline {
 
         this.textBox = d3.select(this.element).append('div').classed("text-box", true);
 
+        this.dayCount = d3.select(this.element).append('div').classed("day-count", true).style("width", "80px");
+
         this.svg = d3.select(this.element).append('svg');
 
         //Set svg dimensions
@@ -169,6 +171,16 @@ class makeTimeline {
                 return this.mobile ? this.xScale(this.parseTime(d.date)) : this.yPos;
             });
 
+        dots.on("mouseover", function(d) {
+            d3.select(this).attr("r", 8);
+        }).on("mouseout", function(d) {
+            d3.select(this)
+                .transition(100)
+                .attr("r", 6);
+        });
+
+
+
     }
 
 
@@ -176,8 +188,6 @@ class makeTimeline {
     updateScrubber(val) {
 
         this.scrubberDate = addDays(this.startDateObj, +val);
-
-        console.log(this.startDateObj, +val);
 
         this.scrubber.attr("transform", d => {
             let pos = this.xScale(this.scrubberDate);
@@ -190,7 +200,11 @@ class makeTimeline {
 
         });
 
-        //return this.axisPos === "top" ? `translate(0,0)` : `translate(0,${this.yPos})`;
+        //Update day count
+        let dayPos = this.xScale(this.scrubberDate) + this.margin.left - 40;
+        let dayText = val == "0" ? `Day 0` : `${numberWithCommas(val)} days`;
+        this.dayCount.style("left", `${dayPos}px`);
+        this.dayCount.html(dayText);
 
 
     }
@@ -283,6 +297,10 @@ function addDays(date, days) {
     var result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
+}
+
+function numberWithCommas(val) {
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 

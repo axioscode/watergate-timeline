@@ -60,12 +60,22 @@ $break-mobile-1: 280px;
 	margin: 0 8px;
 }
 
-.nixon .hedcut {
-	margin-top: 68px;
+.nixon {
+	.hedcut {
+		margin-top: 68px;
+	}
+
+	.day-count {
+		display: none;
+	}
 }
 
-.trump .hedcut {
-	margin-top: 16px;
+.trump {
+
+	.hedcut {
+		margin-top: 16px;
+	}
+	
 }
 
 
@@ -115,10 +125,21 @@ $break-mobile-1: 280px;
 		fill: $grey;
 		stroke-width: 1;
 		stroke: #fff;
+		cursor: pointer;
 
 		&.active {
 			fill: $red-secondary;
 		}
+	}
+
+	.day-count {
+		position: absolute;
+		padding: 4px 0;
+		background-color: white;
+		font-family: $mono;
+		font-size: 12px;
+		text-align: center;
+		top: -10px;
 	}
 
 	.text-box {
@@ -166,10 +187,16 @@ $break-mobile-1: 280px;
 
 		&.nixon {
 			margin-right: -2px;
+			.day-count {
+				display: none;
+			}
 		}
 
 		&.trump {
 			margin-left: -2px;
+			.day-count {
+				display: none;
+			}
 		}
 	}
 
