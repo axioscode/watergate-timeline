@@ -14,8 +14,6 @@ import trumpData from "../data/trump.json";
 
 import watergateData from "../data/watergate-timeline.json";
 
-import getSvg from "./svgIcons";
-
 document.addEventListener("DOMContentLoaded", main());
 
 function main() {
