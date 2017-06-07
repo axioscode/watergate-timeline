@@ -1,6 +1,6 @@
 @import 'feta';
 
-// div,span {
+// div{
 // 	outline: 1px solid black;
 // }
 
@@ -9,7 +9,11 @@ $break-mobile-3: 375px;
 $break-mobile-2: 321px;
 $break-mobile-1: 280px;
 
-
+body {
+	float: left; 
+	width: 100%;
+	text-align: center;
+}
 
 .head {
 	margin-top: 4px;
@@ -29,24 +33,57 @@ $break-mobile-1: 280px;
     color: #848484;
 }
 
+.key {
+	margin-bottom: 10px;
+	.key-item {
+		img {
+			width: 14px;
+    		position: relative;
+    		top: 2px;
+		}
+
+		font-size: 12px;
+		font-family: $sans;
+		color: #848484;
+		display: inline-block;
+		margin: 0 8px;
+	}
+}
+
 .the-buttons {
 
 	width: 100%;
 	float: left;
+	text-align: center;
+	padding: 8px;
 
-	.btn { 
-		font-family: $mono;
-		font-size: 12px;
-		padding: 4px 15px;
-		background-color: $grey-lighter;
-		color: $grey-darker;
-		float: left;
-		margin: 4px;
-		line-height: 1;
 
-		&:hover {
-			background-color: $grey;
+
+
+	.ac-start, .ac-pause, .ac-prev, .ac-next {
+		display: none;
+		width: 15px;
+		height: 16px;
+		fill: $grey;
+		cursor: pointer;
+		margin: 0 4px;
+
+		&.active {
+			display: inline-block;
+
+			&:hover {
+				fill: $grey-darkest;
+			}
 		}
+
+	}
+
+	.ac-prev, .ac-next {
+		padding-bottom: 2px;
+	}
+
+	.ac-prev {
+		margin-right: 7px;
 	}
 
 }
@@ -62,7 +99,7 @@ $break-mobile-1: 280px;
 
 .nixon {
 	.hedcut {
-		margin-top: 68px;
+		margin-top: 54px;
 	}
 
 	.day-count {
@@ -94,19 +131,18 @@ $break-mobile-1: 280px;
 		width: 100%;
 		float: left;
 		font-family: $sans;
-		color: $grey-dark;
+		color:  #4a4a4a;
 		font-size: 12px;
+		margin-top: 2px;
 	}
 
 }
 
 
-
-
 .chart {
 	float: left;
 	width: 85%;
-	height: 140px;
+	height: 120px;
 	position: relative;
 
 	.axis {
@@ -117,66 +153,129 @@ $break-mobile-1: 280px;
 
 		text {
 			fill: $grey-dark;
+			font-family: $mono;
 		}
 	}
 
+	// .icon {
+	// 	fill: $grey;
+	// }
+
 	.dot {
-		
 		fill: $grey;
-		stroke-width: 1;
-		stroke: #fff;
 		cursor: pointer;
 
-		&.active {
-			fill: $red-secondary;
+		circle, path {
+			stroke-width: 1;
+			stroke: #fff;
+		}
+
+
+		&.active, &.active circle {
+			fill: #e74e29;
 		}
 	}
 
 	.day-count {
 		position: absolute;
-		padding: 4px 0;
+		padding: 3px 0 2px 0;
 		background-color: white;
 		font-family: $mono;
-		font-size: 12px;
+		color: #4a4a4a;
+		font-size: 11px;
 		text-align: center;
 		top: -10px;
+		outline: 1px solid $grey;
+		pointer-events: none;
+
+	}
+
+	.scrubber {
+		
+		cursor: ew-resize;
+
+		rect.draggable {
+			fill: #fff;
+			//fill: $grey-lighter;
+		}
+
+		rect.drag-handle {
+			fill: $grey;
+		}
+
+		line {
+			stroke: $grey-darker;
+			stroke-width: 1;
+			stroke-dasharray: 4,2;
+		}
+
+		// &.is-mobile {
+		// 	cursor: ns-resize;
+		// }
+
+		
 	}
 
 	.text-box {
 		position: absolute;
 		padding: 4px;
 		font-family: $mono;
-		background-color: $grey-lightest;
-		z-index: 10;
-		line-height: 1.5;
-		max-width: 200px;
-		min-width: 140px;
+		//background-color: $grey-lightest;
+		z-index: 11;
+		line-height: 1.4;
+		max-width: 120px;
+		min-width: 160px;
 		display: none;
+		color: #4a4a4a;
+		text-align: left;
 
 		&.active {
 			display: inherit;
 		}
 
 		h2 {
-			font-size: 10px;
-			text-transform: uppercase;
-			color: $red-secondary;
-			letter-spacing: .5;
+			font-size: 11px;
+			color: #e74e29;
+			//letter-spacing: .5;
+			//margin-bottom: 2px;
 		}
 
 		p {
 			font-size: 12px;
-			color: $grey-darkest;
+			color: #4a4a4a;
+			font-family: $sans;
 		}
 	}
+
+
+	&.is-mobile {
+		.scrubber {
+			cursor: ns-resize;
+		}
+
+	}
+
 }
 
 
 @media screen and (max-width: $break-mobile-3) {
 	
+	// div, svg {
+	// 	outline: 1px solid tomato;
+	// }
+
 	body {
 		// background-color: #ccc;
 		text-align: center;
+	}
+
+	.the-buttons {
+		margin-bottom: 8px;
+
+		.ac-pause, .ac-start, .ac-prev, .ac-next {
+			margin-left: 15px;
+			margin-right: 15px;
+		}
 	}
 
 	.row {
@@ -190,12 +289,20 @@ $break-mobile-1: 280px;
 			.day-count {
 				display: none;
 			}
+
+			.text-box {
+				text-align: right;
+			}
 		}
 
 		&.trump {
 			margin-left: -2px;
 			.day-count {
-				display: none;
+				//display: none;
+			}
+
+			.text-box {
+				text-align: left;
 			}
 		}
 	}
@@ -216,7 +323,7 @@ $break-mobile-1: 280px;
 	.chart {
 		display: inline-block;
 		width: 100%;
-		height: 450px;
+		height: 400px;
 
 		.text-box {
 			max-width: auto;
@@ -224,6 +331,12 @@ $break-mobile-1: 280px;
 		}
 
 	}
+
+	
+
+
+
+
 
 
 }

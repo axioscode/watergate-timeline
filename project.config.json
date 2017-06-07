@@ -8,5 +8,14 @@
     "bucket": "graphics.axios.com",
     "folder": "2017-05-31-2017-05-31-proj-watergate-timeline"
   },
-  "files": []
+  "files": [
+    {
+      "type": "sheet",
+      "opts": {
+        "processor": "table"
+      },
+      "fileId": "1m08faqnYhvQ_g1S4X6FEaxH9K9FKnghwzvs26_Xg7ME",
+      "name": "watergate-timeline"
+    }
+  ]
 }
