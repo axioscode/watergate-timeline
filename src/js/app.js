@@ -1,11 +1,14 @@
-const d3 = require("d3");
 
 // var setupVisualsGoogleAnalytics = require('./analytics.js').setupVisualsGoogleAnalytics;
 // var trackEvent = require('./analytics.js').trackEvent;
 
-var pym = require('pym.js');
+const d3 = require("d3");
+const analytics = require('./analytics.js')
+const pym = require('pym.js');
 
-var pymChild = null;
+let pymChild = null;
+
+analytics.setupVisualsGoogleAnalytics();
 
 import makeTimeline from "./timelines";
 import makeTimer from "./timer";
@@ -153,6 +156,9 @@ function main() {
 
 
     function dragended(d) {
+
+        analytics.trackEvent('drag-handle','single');
+
         //console.log("dragended");
     }
 
