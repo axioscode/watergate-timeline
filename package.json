@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios-feta": "axioscode/feta#v0.0.1",
+    "d3": "^4.9.1",
     "d3-selection": "^1.0.3",
     "lodash": "^4.17.4",
     "pym.js": "^1.2.2"

@@ -156,10 +156,7 @@ function main() {
 
 
     function dragended(d) {
-
         analytics.trackEvent('drag-handle','single');
-
-        //console.log("dragended");
     }
 
 
@@ -196,12 +193,14 @@ function main() {
         timer.pause();
         d3.select(".ac-pause").classed("active", false);
         d3.select(".ac-start").classed("active", true);
+        analytics.trackEvent('pauseButton','single');
     }
 
     function startTimer() {
         timer.start();
         d3.select(".ac-start").classed("active", false);
         d3.select(".ac-pause").classed("active", true);
+        analytics.trackEvent('startButton','single');
     }
 
 
@@ -221,6 +220,7 @@ function main() {
                 pauseTimer();
                 setActiveDates(+d.days)
                     //updateTimelines();
+                analytics.trackEvent('trumpDotClick',d.date);
             });
 
         nixonTimeline.plot.selectAll(".dot")
@@ -229,6 +229,7 @@ function main() {
                 timer.pause();
                 pauseTimer();
                 setActiveDates(+d.days)
+                analytics.trackEvent('nixonDotClick',d.date);
             });
 
         nixonTimeline.scrubber.call(d3.drag()
@@ -272,6 +273,7 @@ function main() {
 
 
         function goToNext() {
+            analytics.trackEvent('nextButton','single');
             pauseTimer();
             index++;
 
@@ -284,6 +286,7 @@ function main() {
         }
 
         function goToPrev() {
+            analytics.trackEvent('prevButton','single');
             pauseTimer();
             index--;
 
